@@ -10,6 +10,12 @@ public class PlayerMove : MonoBehaviour
     private float horizontalInput;
     [SerializeField]
     private float verticalInput;
+    public GameObject lasePrefab;
+    public float fireRate = 0.25f;
+    public float canFire = 0;
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,20 +26,33 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        PlayerMovement();
+        if(Input.GetKeyDown(KeyCode.Space)||Input.GetMouseButton(0))
+        {
+            if(Time.time>canFire)
+            {
+                Instantiate(lasePrefab, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                canFire = Time.time + fireRate;
+            }
+          
+        }
+    }
+
+    private void PlayerMovement()
+    {
         horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * Time.deltaTime * PmoveSpeed*horizontalInput);
+        transform.Translate(Vector3.right * Time.deltaTime * PmoveSpeed * horizontalInput);
         verticalInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.up * Time.deltaTime * PmoveSpeed * verticalInput);
 
 
         // bounds for y
-        if(transform.position.y> 2f)
+        if (transform.position.y > 2f)
         {
             transform.position = new Vector3(transform.position.x, 2f, 0);
 
         }
-        else if(transform.position.y<-4.2f)
+        else if (transform.position.y < -4.2f)
 
         {
             transform.position = new Vector3(transform.position.x, -4.2f, 0);
