@@ -17,7 +17,12 @@ public class LaserMove : MonoBehaviour
         transform.Translate(Vector3.up * lSpeed * Time.deltaTime);
         if(transform.position.y>=6)
         {
-            Destroy(gameObject);
+            if(transform.parent!=null)
+            {
+                Destroy(transform.parent);
+            }
+
+            Destroy(this.gameObject);
         }
     }
 }

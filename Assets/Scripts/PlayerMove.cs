@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public bool isSpeedpowerup = false;
     public bool cantripleShot;
+    public float PlayerLives = 5;
     public float canFire = 0;
     Vector3 direction;
     public float PmoveSpeed;
@@ -86,13 +88,59 @@ public void Key(Vector3 vector, float axis)
     }
     private void PlayerMovement()
     {
+
+        if(isSpeedpowerup==true)
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * PmoveSpeed*2.0f * horizontalInput);
+            transform.Translate(Vector3.up * Time.deltaTime * PmoveSpeed*2.0f * verticalInput);
+        }
+        else
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * PmoveSpeed  * horizontalInput);
+            transform.Translate(Vector3.up * Time.deltaTime * PmoveSpeed  * verticalInput);
+        }
         horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * Time.deltaTime * PmoveSpeed * horizontalInput);
+       
         verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.up * Time.deltaTime * PmoveSpeed * verticalInput);
+       
     }
-       IEnumerator TripleshotPowerDown()
+
+    public void TripleShotPowerUp()
     {
-        y
+        cantripleShot = true;
+        StartCoroutine(TripleShotPowerDown());
+
     }
-  }
+
+    public void SpeedPowerupOn()
+    {
+        isSpeedpowerup = true;
+        StartCoroutine(SpeedPowerDown());
+    }
+
+    public IEnumerator TripleShotPowerDown()
+    {
+        yield return new WaitForSeconds(5.0f);
+        cantripleShot = false;
+    }
+
+    public IEnumerator SpeedPowerDown()
+    {
+        yield return new WaitForSeconds(2);
+        isSpeedpowerup = false;
+    }
+
+    public void Damage()
+    {
+        PlayerLives--;
+        if(PlayerLives<1)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    //public IEnumerator TripleshotDown()
+    // {
+    //     yield return. WaitForSeconds(5f);
+    // }
+}
