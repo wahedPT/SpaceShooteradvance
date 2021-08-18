@@ -6,32 +6,39 @@ public class Spawnner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject[] powerUps;
-    private GameManager gamemanager;
-
-    private void Start()
+    private GameManager gameManager;
+    // Start is called before the first frame update
+    void Start()
     {
-        EnemySpawn();
-        PowerUpSpawn();
-        gamemanager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+    public void callCoroutines()
+    {
+        StartCoroutine(EnemySpawn());
+        StartCoroutine(PowerUpsSpawn());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        print(gameManager.GameOver);
     }
     IEnumerator EnemySpawn()
     {
-        while (gamemanager.gameOver == false)
+        while (gameManager.GameOver == false)
         {
-            Instantiate(enemyPrefab, new Vector3(Random.Range(-8f, 8f), 6f, 0),Quaternion.identity);
+            Instantiate(enemyPrefab, new Vector3(Random.Range(-8, 8), 6, 0), Quaternion.identity);
             yield return new WaitForSeconds(5.0f);
-
         }
     }
-
-    IEnumerator PowerUpSpawn()
+    IEnumerator PowerUpsSpawn()
     {
-        while (gamemanager.gameOver==false)
+        while (gameManager.GameOver == false)
         {
-            int RandomPowerup = Random.Range(0, powerUps.Length);
-            Instantiate(powerUps[RandomPowerup], new Vector3(Random.Range(-8f, 8f), 6f, 0), Quaternion.identity);
-            yield return new WaitForSeconds(5.0f);
+            int r = Random.Range(0, powerUps.Length);
+            Instantiate(powerUps[r], new Vector3(Random.Range(-8, 8), 6, 0), Quaternion.identity);
+            yield return new WaitForSeconds(10.0f);
         }
-          
     }
 }

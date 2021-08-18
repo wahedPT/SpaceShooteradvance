@@ -5,13 +5,8 @@ using UnityEngine;
 public class SpeedupandTripleShot : MonoBehaviour
 {
     private float tripleShotPowerUp = 3.0f;
-    public float powerupid;
-    //Player player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //player = FindObjectOfType<Player>();
-    }
+    [SerializeField]
+    private int powerUpId;//0-TripleShot, 1-Speed, 2-Shields
 
     // Update is called once per frame
     void Update()
@@ -20,27 +15,23 @@ public class SpeedupandTripleShot : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //accessing the can
-        //player.canTripleShoot = true;
         if (collision.tag == "Player")
         {
             PlayerMove player = collision.GetComponent<PlayerMove>();
             if (player != null)
             {
-                if (powerupid == 0)
+                if (powerUpId == 0)
                 {
-                    //player.cantripleShot = true;
                     player.TripleShotPowerUp();
                 }
-                else if (powerupid == 1)
+                else if (powerUpId == 1)
                 {
-                    player.SpeedPowerupOn();
+                    player.SpeedPowerUpON();
                 }
-                else if (powerupid == 2)
+                else if (powerUpId == 2)
                 {
-                    player.EnableShieldPowerUp();
+                    //shields
                 }
-
             }
             this.gameObject.SetActive(false);
         }

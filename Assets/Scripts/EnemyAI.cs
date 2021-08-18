@@ -4,52 +4,55 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject enemyExplosion;
-    public float enemySpeed;
-    private UIManager uimanager;
-
-
+    public float enemySpeed; //enemy speed
+    Animator anim;
+    UIManager UIObject;
     // Start is called before the first frame update
     void Start()
     {
-        uimanager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        anim = GetComponent<Animator>();
+        UIObject = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * enemySpeed * Time.deltaTime);
-        if(transform.position.y<-6.0f)
-
+        //move down 
+        transform.Translate(Vector3.down * Time.deltaTime * enemySpeed);
+        //when the enemy off the screen on the bottom he needs to respawn with new random x position
+        if (this.transform.position.y < -6.0f)
         {
-            transform.position = new Vector3(Random.Range(-8.0f, 8.0f), 6, 0);
+            Destroy(this.gameObject);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Laser")
         {
-
-            if(collision.transform.parent!=null)
+            if (collision.transform.parent != null)
             {
-                Destroy(transform.parent);
+                Destroy(transform.parent.gameObject);
             }
+            anim.SetTrigger("Explode");
+            Invoke("destroyEnemy", 2);
+            UIObject.UpdateScore();
             Destroy(collision.gameObject);
-            Instantiate(enemyExplosion, transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
-            uimanager.updateScore();
-           // this.gameObject.SetActive(false);
-
-
         }
-        if (collision.tag == "Player")
+        else if (collision.tag == "Player")
         {
+            //need to damage player
+            print("collision");
             PlayerMove player = collision.GetComponent<PlayerMove>();
-            if(player!=null)
+            if (player != null)
             {
                 player.Damage();
             }
-
         }
+
+        //this.gameObject.SetActive(false);
+    }
+    void destroyEnemy()
+    {
+        Destroy(this.gameObject);
     }
 }

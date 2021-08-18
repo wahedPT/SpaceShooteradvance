@@ -34,7 +34,7 @@ public class PoTripleandSpeedup : MonoBehaviour
                 }
                 else if(powerupid==1)
                 {
-                    player.SpeedPowerupOn();
+                    player.SpeedPowerUpON();
                 }
                 else if (powerupid == 2)
                 {

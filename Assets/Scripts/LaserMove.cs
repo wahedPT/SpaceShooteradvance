@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class LaserMove : MonoBehaviour
 {
-    [SerializeField] float lSpeed;
+    [SerializeField] float laserSpeed;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up * lSpeed * Time.deltaTime);
-        if(transform.position.y>=6)
+        transform.Translate(Vector3.up * Time.deltaTime * laserSpeed);
+        if (transform.position.y >= 6f)
         {
-            if(transform.parent!=null)
+            if (transform.parent != null)
             {
-                Destroy(transform.parent);
+                Destroy(transform.parent.gameObject);
             }
-
             Destroy(this.gameObject);
         }
+
     }
 }

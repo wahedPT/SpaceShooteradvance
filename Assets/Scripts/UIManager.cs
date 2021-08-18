@@ -8,28 +8,29 @@ public class UIManager : MonoBehaviour
 {
 
 
-    public Sprite[] liveImages;
-    public Image displayLiveImage;
-    public int Score;
+    public Sprite[] livesImages;
+    public Image presentImage;
+    public int score;
     public Text scoreText;
-    public GameObject gameOverScrn;
+    public GameObject GameoverScreen;
+    public void UpdateLives(int lives)
+    {
+        presentImage.sprite = livesImages[lives];
+    }
+    public void UpdateScore()
+    {
+        score++;
+        scoreText.text = "Score : " + score;
+    }
+    public void ShowGameOverScreen()
+    {
+        //to show gameover screen
+        GameoverScreen.SetActive(true);
 
-    public void UpdateLIves(int currentLives)
-    {
-        displayLiveImage.sprite = liveImages[currentLives];
     }
-    public void updateScore()
+    public void HideGameOverScreen()
     {
-        Score++;
-        scoreText.text = "Score:  " + Score;
-    }
-     
-    public void showGameoverScreen()
-    {
-        gameOverScrn.SetActive(true);
-    }
-    public void hideGameoverScreen()
-    {
-        gameOverScrn.SetActive(false);
+        //to hide the GameOver screen
+        GameoverScreen.SetActive(false);
     }
 }

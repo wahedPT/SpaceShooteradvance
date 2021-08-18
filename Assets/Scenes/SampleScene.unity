@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b93d5b5e6fd0c2428a2d827d6633bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOver: 1
-  player: {fileID: 0}
-  uimanager: {fileID: 0}
+  GameOver: 0
+  player: {fileID: 2050509173}
+  Uiobject: {fileID: 852982644}
 --- !u!4 &208076664
 Transform:
   m_ObjectHideFlags: 0
@@ -605,15 +605,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a245bb0e054c2ef499a4ca28ccf30fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  liveImages:
+  livesImages:
   - {fileID: 21300000, guid: 9fe6f40efddf0b64fb68a3382b14a4db, type: 3}
   - {fileID: 21300000, guid: 482c8e4c0346b704aa5f1760c3c989d5, type: 3}
   - {fileID: 21300000, guid: 80fba5ece7697c44eacc036539c1b552, type: 3}
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
-  displayLiveImage: {fileID: 2089210993}
-  Score: 0
+  presentImage: {fileID: 579229391}
+  score: 0
   scoreText: {fileID: 1097948530}
-  gameOverScrn: {fileID: 579229390}
+  GameoverScreen: {fileID: 579229390}
 --- !u!1 &1097948529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,20 +1020,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174f12694bf2ba140ab361c32ef4c61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSpeedpowerup: 0
-  cantripleShot: 0
-  isShieldActive: 0
-  PlayerLives: 3
-  canFire: 3
-  PmoveSpeed: 5
-  horizontalInput: -1.2
-  verticalInput: 0
-  lasePrefab: {fileID: 2301508956344114287, guid: bff376ddf85c5cd4f8149cf29f242eeb, type: 3}
-  tripleShotPrefab: {fileID: 8922009015124010184, guid: 97c99d96ef2d8b84184a73f008b0843d, type: 3}
+  canTripleShoot: 0
+  isSpeedPowerUpActive: 0
+  moveSpeed: 0
+  laserPrefab: {fileID: 2301508956344114287, guid: bff376ddf85c5cd4f8149cf29f242eeb, type: 3}
+  tripleLaserPrefab: {fileID: 8922009015124010184, guid: 97c99d96ef2d8b84184a73f008b0843d, type: 3}
+  canfire: 0
   fireRate: 0.25
-  Pexplosion: {fileID: 5679468086679193752, guid: 53ed91b306e1d194b8823800fba2748a, type: 3}
-  shieldGameobj: {fileID: 0}
-  uimanager: {fileID: 0}
+  playerLives: 3
 --- !u!50 &2050509177
 Rigidbody2D:
   serializedVersion: 4
