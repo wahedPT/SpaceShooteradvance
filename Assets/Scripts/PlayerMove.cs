@@ -7,7 +7,7 @@ public class PlayerMove : MonoBehaviour
     public bool isSpeedpowerup = false;
     public bool cantripleShot;
     public bool isShieldActive = false;
-    public float PlayerLives = 5;
+    public int PlayerLives = 3;
     public float canFire = 0;
     Vector3 direction;
     public float PmoveSpeed;
@@ -20,13 +20,24 @@ public class PlayerMove : MonoBehaviour
     Animator anim;
     public GameObject Pexplosion;
     public GameObject shieldGameobj;
+    public UIManager uimanager;
+    private GameManager gameManager;
+    private Spawnner spawnner;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
-        anim = GetComponent<Animator>();
+        uimanager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        spawnner = GameObject.Find("Spawnner").GetComponent<Spawnner>();
+        if (uimanager!=null)
+        {
+            uimanager.UpdateLIves(PlayerLives);
+        }
+        //anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -163,10 +174,13 @@ public void Key(Vector3 vector, float axis)
         else
         {
             PlayerLives--;
+            uimanager.UpdateLIves(PlayerLives);
             if (PlayerLives < 1)
             {
                 Instantiate(Pexplosion, transform.position, Quaternion.identity);
                 //anim.SetTrigger("RocketExplode");
+                gameManager.gameOver = true;
+                uimanager.showGameoverScreen();
                 Destroy(this.gameObject);
 
             }

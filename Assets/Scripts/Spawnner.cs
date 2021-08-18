@@ -5,25 +5,33 @@ using UnityEngine;
 public class Spawnner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    float time = 0;
-    //Playermovement player;
-    // Start is called before the first frame update
+    public GameObject[] powerUps;
+    private GameManager gamemanager;
+
     private void Start()
     {
-       // player = GameObject.Find("SpaceShip").GetComponent<Playermovement>();
+        EnemySpawn();
+        PowerUpSpawn();
+        gamemanager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+    IEnumerator EnemySpawn()
+    {
+        while (gamemanager.gameOver == false)
+        {
+            Instantiate(enemyPrefab, new Vector3(Random.Range(-8f, 8f), 6f, 0),Quaternion.identity);
+            yield return new WaitForSeconds(5.0f);
+
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator PowerUpSpawn()
     {
-        time += Time.deltaTime;
-        if (time > 2.0f)
+        while (gamemanager.gameOver==false)
         {
-            float value = Random.Range(-9f, 9f);
-
-            GameObject enemyRef = Instantiate(enemyPrefab);
-            enemyRef.transform.position = new Vector3(value, 6.0f, 0);
-            time = 0;
+            int RandomPowerup = Random.Range(0, powerUps.Length);
+            Instantiate(powerUps[RandomPowerup], new Vector3(Random.Range(-8f, 8f), 6f, 0), Quaternion.identity);
+            yield return new WaitForSeconds(5.0f);
         }
+          
     }
 }
