@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     public bool isSpeedpowerup = false;
     public bool cantripleShot;
+    public bool isShieldActive = false;
     public float PlayerLives = 5;
     public float canFire = 0;
     Vector3 direction;
@@ -17,6 +18,9 @@ public class PlayerMove : MonoBehaviour
     public GameObject lasePrefab,tripleShotPrefab;
     public float fireRate = 0.25f;
     Animator anim;
+    public GameObject Pexplosion;
+    public GameObject shieldGameobj;
+
 
     // Start is called before the first frame update
     void Start()
@@ -113,9 +117,12 @@ public void Key(Vector3 vector, float axis)
             transform.Translate(Vector3.up * Time.deltaTime * PmoveSpeed  * verticalInput);
         }
         horizontalInput = Input.GetAxis("Horizontal");
+        
        
         verticalInput = Input.GetAxis("Vertical");
-       
+
+      //anim.SetTrigger("RightM");
+      //  anim.SetTrigger("LeftM");
     }
 
     public void TripleShotPowerUp()
@@ -145,17 +152,38 @@ public void Key(Vector3 vector, float axis)
 
     public void Damage()
     {
-        PlayerLives--;
-        if(PlayerLives<1)
-        {
-           
-            anim.SetTrigger("RocketExplode");
 
+
+        if(isShieldActive==true)
+        {
+            isShieldActive = false;
+            shieldGameobj.SetActive(false);
+            return;
         }
+        else
+        {
+            PlayerLives--;
+            if (PlayerLives < 1)
+            {
+                Instantiate(Pexplosion, transform.position, Quaternion.identity);
+                //anim.SetTrigger("RocketExplode");
+                Destroy(this.gameObject);
+
+            }
+        }
+
+       
     }
 
     //public IEnumerator TripleshotDown()
     // {
     //     yield return. WaitForSeconds(5f);
     // }
+
+    public void EnableShieldPowerUp()
+    {
+        isShieldActive = true;
+        shieldGameobj.SetActive(true);
+
+    }
 }

@@ -529,10 +529,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpeedpowerup: 0
   cantripleShot: 0
-  PlayerLives: 2
+  PlayerLives: 5
   canFire: 3
   PmoveSpeed: 5
-  horizontalInput: 0
+  horizontalInput: -1.2
   verticalInput: 0
   lasePrefab: {fileID: 2301508956344114287, guid: bff376ddf85c5cd4f8149cf29f242eeb, type: 3}
   tripleShotPrefab: {fileID: 8922009015124010184, guid: 97c99d96ef2d8b84184a73f008b0843d, type: 3}

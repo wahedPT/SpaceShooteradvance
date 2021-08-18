@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    public GameObject enemyExplosion;
     public float enemySpeed;
 
 
@@ -34,6 +35,7 @@ public class EnemyAI : MonoBehaviour
                 Destroy(transform.parent);
             }
             Destroy(collision.gameObject);
+            Instantiate(enemyExplosion, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
 
 
