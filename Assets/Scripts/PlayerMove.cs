@@ -16,11 +16,13 @@ public class PlayerMove : MonoBehaviour
     private float verticalInput;
     public GameObject lasePrefab,tripleShotPrefab;
     public float fireRate = 0.25f;
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,15 @@ public class PlayerMove : MonoBehaviour
             Shoot();
 
         }
+
+        //if(Input.GetKeyDown(KeyCode.A))
+        //{
+        //    anim.SetTrigger("Left");
+        //}
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    anim.SetTrigger("Right");
+        //}
 
     }
 
@@ -73,11 +84,13 @@ public class PlayerMove : MonoBehaviour
         if (boundX >= 10f)
         {
             transform.position = new Vector3(-10f, boundY, 0);
-            
+           
+
         }
         else if (boundX <= -10f)
         {
             transform.position = new Vector3(10f, boundY, 0);
+           
         }
     }
 
@@ -135,7 +148,9 @@ public void Key(Vector3 vector, float axis)
         PlayerLives--;
         if(PlayerLives<1)
         {
-            Destroy(this.gameObject);
+           
+            anim.SetTrigger("RocketExplode");
+
         }
     }
 
