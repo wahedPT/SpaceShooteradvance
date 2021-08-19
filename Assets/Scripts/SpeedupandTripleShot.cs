@@ -34,6 +34,10 @@ public class SpeedupandTripleShot : MonoBehaviour
                 }
             }
             this.gameObject.SetActive(false);
+           player. audioSource.clip =player.powerupAudioclip;
+           player. audioSource.Play();
+
+
         }
     }
 }

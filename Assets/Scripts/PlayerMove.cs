@@ -7,6 +7,12 @@ public class PlayerMove : MonoBehaviour
     public bool canTripleShoot = false;
     public bool isSpeedPowerUpActive = false;//variable to know whether you collected the speed power up
 
+   public AudioSource audioSource;
+    public AudioClip laseraudioClip;
+    public AudioClip ExplosionaudioClip;
+    public AudioClip powerupAudioclip;
+    public AudioClip gameaudioClip;
+
     [SerializeField] float moveSpeed;
     [SerializeField] GameObject laserPrefab, tripleLaserPrefab;
     [SerializeField] float canfire;
@@ -22,7 +28,7 @@ public class PlayerMove : MonoBehaviour
     {
         transform.position = new Vector3(0, 0, 0);
         UIObject = GameObject.Find("Canvas").GetComponent<UIManager>();
-        spawnManagerObject = GameObject.Find("Spawmmer").GetComponent<Spawnner>();
+        spawnManagerObject = GameObject.Find("Spawnner").GetComponent<Spawnner>();
         if (UIObject != null)
         {
             UIObject.UpdateLives(playerLives);
@@ -32,6 +38,8 @@ public class PlayerMove : MonoBehaviour
         {
             spawnManagerObject.callCoroutines();
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -54,6 +62,9 @@ public class PlayerMove : MonoBehaviour
             transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * vertical);
         }
 
+        audioSource.clip = gameaudioClip;
+        audioSource.Play();
+
 
         //Player Y Boundarys
         PlayerMovements();
@@ -61,6 +72,8 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0))
         {
             Shoot();
+            audioSource.clip = laseraudioClip;
+            audioSource.Play();
         }
     }
 
@@ -100,6 +113,7 @@ public class PlayerMove : MonoBehaviour
             }
 
             canfire = Time.time + fireRate;
+
         }
     }
     public void Damage()
@@ -114,6 +128,8 @@ public class PlayerMove : MonoBehaviour
             gameManagerobject.GameOver = true;
             UIObject.ShowGameOverScreen();
         }
+        audioSource.clip = ExplosionaudioClip;
+        audioSource.Play();
     }
     public void TripleShotPowerUp()
     {
