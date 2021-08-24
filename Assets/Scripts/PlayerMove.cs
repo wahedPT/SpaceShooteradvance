@@ -23,6 +23,9 @@ public class PlayerMove : MonoBehaviour
     Spawnner spawnManagerObject;
 
     public int playerLives = 3;
+    public GameObject[] engines;
+
+
     // Start is called before the first frame update
     void Start()
     {
